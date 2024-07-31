@@ -1,0 +1,248 @@
+# Tutorial - CSS Animations
+
+By [Marion Genotte](https://marion.codes) for [Anvil](https://anvil.works).
+
+## Objective:
+
+Learn the basics of CSS animations by making a simple but cool day to night transition. Enjoy!
+
+import Slider from "./Slider.jsx";
+import Video from "./Video.jsx";
+
+<Slider />
+
+## Audience:
+
+This tutorial is for beginners with a basic understanding of HTML and CSS, so don’t be intimidated!
+
+## We’ll cover:
+
+1. Introduction to CSS animations.
+2. Setting up the HTML.
+3. Defining the CSS styles.
+4. What are keyframes?
+5. Syntax!
+6. How to define our keyframes?
+7. Making things move.
+8. Applying the animations.
+9. Animating our sun and moon.
+10. Conclusion.
+
+## Introduction to CSS animations:
+
+The cool thing about computers is that they can do things instantaneously. You click on a link, it takes you immediately to a webpage. Simple and efficient, but unpleasant for our eyes; it’s like when you open a window in a dark room. You need light to see, but don’t want all of it at once, you want a smooth transition from dark to light.
+
+It’s the same for websites; you want things to go smoothly. CSS animations help you achieve that goal by changing the style of an element over time.
+
+## Setting up the HTML:
+
+Create an HTML file with an empty div.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sunrise to Sunset</title>
+  </head>
+
+  <body>
+    <div class="sun_moon"></div>
+  </body>
+</html>
+```
+
+## Defining the CSS styles:
+
+Create a CSS file and add the basic styles to create a full moon in a night sky.
+
+```css
+body {
+  background-color: darkblue;
+}
+
+.sun_moon {
+  height: 80px;
+  width: 80px;
+  top: 30px;
+  left: 30px;
+  border-radius: 40px;
+  color: white;
+}
+```
+
+## What are keyframes?
+
+Keyframes are like variables in which you specify your styles at various points during an animation. We’ll get to that in a second, let’s see how the syntax works for now.
+
+If you take a second look at the animation, you’ll notice that two elements are transitioning: the moon becomes the sun, and the sky turns from dark to light blue.
+
+<Slider />
+
+You guessed correctly, you need two keyframes, one for each element. Let’s start with one. And like all variables, they need a name. Let’s call our keyframe for the sky, `skyChange`.
+
+## Syntax!
+
+There are a few syntax specifications you’ll need to remember. (CSS just doesn’t like it when things are too simple!). You need to remember the `@` (if you are familiar with media queries, this should ring a bell).
+
+The `@` is immediately followed by the keyword `keyframes`. (Don’t ask me why it takes an `s`, your guess is as good as mine).
+
+And now we have an empty keyframe where we can define our animation.
+
+```css
+@keyframes skyChange {
+}
+```
+
+## How to define our keyframes?
+
+Keyframes let us define what we want to change, at what point in time, and how they change. In this instance, we need our background to change gradually.
+
+- At 0% (the beginning of the animation) start with dark blue, our original color.
+- At 50% (halfway through the animation) transition from dark blue to light blue.
+- 100% (the end of the animation) end with light cyan.
+
+Looks straightforward enough. But once again, you need to pay attention to the syntax.
+
+The time sequence is measured in percentages (%), this is what you use to tell CSS from which point to which point it needs to do a transition. This can be any value between 0 and 100.
+
+Secondly, between curly brackets `{}`, define which property needs to be changed, set the new value. In our case, we want the background-color to change.
+
+And there you have it, you’ve created your first keyframe.
+
+```css
+@keyframes skyChange {
+  0% {
+    background-color: darkblue;
+  }
+  50% {
+    background-color: lightblue;
+  }
+  100% {
+    background-color: lightcyan;
+  }
+}
+```
+
+## Making things move:
+
+Yes, I know, you want to see something move. Your wish is about to come true.
+
+Like I said before, a keyframe is like a variable, so it needs to be assigned to something.
+
+We can apply them to a specific selector using the `animation` property. Here we assign it to the body.
+
+```css
+body {
+  background-color: darkblue;
+  animation: skyChange;
+}
+```
+
+Great! Now the program knows what it needs to change. It knows that the background needs to be changed at 50% and 100% of the animation sequence. But how long is the animation sequence? We need to specify a duration.
+
+Let’s set it to five seconds.
+
+```css
+body {
+  background-color: darkblue;
+  animation: skyChange 5s;
+}
+```
+
+Let's see what it does:
+
+<Video src="/noloop.mp4" />
+
+Excellent! Our night became day. But wouldn’t it be cooler if our animation was on a loop? We can do that by adding a new value: `infinite`.
+
+```css
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: darkblue;
+  animation: skyChange 5s infinite alternate;
+}
+```
+
+The result is this:
+
+<Video src="/infinite.mp4" />
+
+Still looks weird, huh? Don’t worry, we’ll fix it! There’s a magic word that can control the animation direction, `alternate`.
+
+Once a sequence is over, this will play the animation backwards, from 100% to 0% and then forward again.
+
+<Video src="/alternate.mp4" />
+
+That’s more like it!
+
+## The `animation` property:
+
+Here we used the `animation` property, which is a shorthand. Here are all the detailed values that are equivalent.
+
+```css
+body {
+  animation-name: skyChange;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+```
+
+Now we can animate our moon/sun.
+
+## Animating our sun and moon:
+
+This tutorial is almost over. Remember our `sun_moon` div? That’s what we’re going to target next.
+
+![sun_moon](/code-side.png)
+
+Just as we did with `skyChange`, we need to create a new keyframe. Let’s call it `moonToSun`.
+
+```css
+@keyframes moonToSun {
+}
+```
+
+Remember the `@` and the `s` at the end of `keyframes`.
+
+Now, what we want is the background of our `sun_moon` to turn from white to yellow. Let’s write that down and see what happens.
+
+```css
+@keyframes moonToSun {
+  from {
+    background-color: white;
+  }
+  to {
+    background-color: yellow;
+  }
+}
+```
+
+We use the `from` and `to` keywords, which are the same as saying `0%` and `100%`, they're just a bit more intuitive.
+
+Let’s apply our keyframe to our `sun_moon` class.
+
+```css
+.sun_moon {
+  height: 80px;
+  width: 80px;
+  top: 30px;
+  left: 30px;
+  border-radius: 40px;
+  color: white;
+  animation: moonToSun 5s infinite alternate;
+}
+```
+
+And it works! CSS is easy sometimes!
+
+## Conclusion:
+
+And we’re done! We learned two ways of doing CSS animations. It’s pretty straightforward. CSS does the hard work for you.
+
+You can use either syntaxes. The one with the percentages is used when we need to get through different steps. For example, you can try to add a twilight sequence with an orange-ish background and a red sun.
+
+Here’s the full code: [https://codepen.io/M-GM50/pen/WNqRVgw?editors=1100](https://codepen.io/M-GM50/pen/WNqRVgw?editors=1100)
